@@ -1,9 +1,10 @@
-# CommandFusion XBMC Control (Beta version)
+# iViewer interface for Extron MLC104IP Plus
 
-Demo for controlling XBMC using the JSON-RPC Protocol with CommandFusion's JavaScript API using HTTP via XBMC's webserver.
+Sample demo GUI for controlling the Extron device via TCP, Port 23.
 
-![XBMC TV Shows](https://github.com/CommandFusion/XBMC/raw/master/Docs/XBMC_TVShows.png)  
-![XBMC Movies](https://github.com/CommandFusion/XBMC/raw/master/Docs/XBMC_Movies.png)
+### Initial Setup & Resources needed:
+1. Extron's Global Configurator software to program and assign functions to the MLC unit. In this sample GUI, the unit was pre-programmed with Projector On/Off, Volume Control and 4 Input selections.
+1. SIS Command Table (starting from chapter 4) from the [user manual](http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0CC4QFjAB&url=http%3A%2F%2Fmedia.extron.com%2Fdownload%2Ffiles%2Fuserman%2F68-1443-01B_MLC104PlusSer_011309.pdf&ei=-iErU9uJMciArgfHjIHwCA&usg=AFQjCNGO1Akfg9QO8mDByD2e4bx9v18WlA&bvm=bv.63316862,d.bmk&cad=rja) 
 
 ### Test Setup that was used to run this module:
 1. Windows Workstation, Windows XP Professional, [XBMC Nightly version Oct 25](http://mirrors.xbmc.org/nightlies/win32/XBMCSetup-20111025-cfa1a05-master.exe)
