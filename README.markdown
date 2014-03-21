@@ -9,6 +9,7 @@ Sample demo GUI for controlling the Extron device via TCP, Port 23.
 ### Special Note
 1. Will need to periodically send some query to the unit as the IP connection will be closed after a specified timeout.
 1. To get properly formatted feedback string, need to choose and set the appropriate verbose/response mode status on startup.
+1. Feedback from hard-button presses on the Extron unit will only be available when the verbose mode is on.
 
 ### Bug Reporting/Feature Requests
 

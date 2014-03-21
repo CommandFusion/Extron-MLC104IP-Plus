@@ -1,0 +1,206 @@
+<gui>
+  <properties>
+    <project>extron</project>
+    <designer>
+    </designer>
+    <size autoposition="scale">
+      <portrait width="320" height="480" />
+      <landscape width="480" height="320" />
+    </size>
+    <autoposition />
+    <imagefolder>
+    </imagefolder>
+    <debug loaderrors="0" connectionerrors="0" />
+    <devices>
+      <device name="Terry's 3GS">AFFFE3E78CF69F601C9985416304F51E</device>
+      <device name="Terry &amp; Renee Ipad2">B5D1B394C837B58C667F6630DC854798</device>
+      <device name="CF Malaysia Samsung galaxy tab2">10F3A96B1BB443D7DD79C5838A68BF61</device>
+      <device name="CF Malaysia iPad4">E4BFE0FB008BFDAEB7C56BE8973ADA5D</device>
+    </devices>
+  </properties>
+  <systems>
+    <system name="MLC" protocol="tcp" accept="0" ip="192.168.0.121" port="23" origin="0" alwayson="1" idleTimeout="0" dialogTimeout="0" heartbeatMode="1" heartbeatRx="" heartbeatTx="1Q" textEncoding="" eom="\x0D\x0A" js="" connectionStatus="100" disconnectionStatus="101" startupCmd="None" startupMacro="startupMacro" offlinequeue="1" ssl="0">
+      <cmd name="Query">1Q</cmd>
+      <cmd name="Input1" folder="InputSelection">1!</cmd>
+      <cmd name="Input2" folder="InputSelection">2!</cmd>
+      <cmd name="Input3" folder="InputSelection">3!</cmd>
+      <cmd name="Input4" folder="InputSelection">4!</cmd>
+      <cmd name="VolSlider" folder="Volume">[sliderval]V</cmd>
+      <cmd name="Display_PowerOn" folder="DisplayPower">1P</cmd>
+      <cmd name="Display_PowerOff" folder="DisplayPower">0P</cmd>
+      <cmd name="Display_MuteOn" folder="DisplayPower">1M</cmd>
+      <cmd name="Display_MuteOff" folder="DisplayPower">0M</cmd>
+      <cmd name="Display_MuteStatus" folder="DisplayPower">M</cmd>
+      <cmd name="SetVerboseMode3" folder="Startup">\x1B3CV\x0D</cmd>
+      <cmd name="requestDisplayPowerStatus" folder="Startup">P</cmd>
+      <cmd name="requestInputStatus" folder="Startup">I</cmd>
+      <cmd name="requestVolLevel" folder="Startup">V</cmd>
+      <cmd name="requestConnectionStatus" folder="Startup">7S</cmd>
+      <cmd name="showDisplayPowUp" js="CF.setJoin(&quot;d20&quot;,1)" jsSendsCommand="False" target="d21" value="0" />
+      <cmd name="showDisplayPowDown" js="CF.setJoin(&quot;d21&quot;,1)" jsSendsCommand="False" target="d20" value="0" />
+      <cmd name="requestLampHour" folder="Startup">6S</cmd>
+      <fb name="AllFB" regex="(.*)">
+        <group index="1" name="" datatype="s" target="s1000" />
+      </fb>
+      <fb name="Input_PressFromMLC_FB" regex="^Chn0(\d)">
+        <group index="1" name="" datatype="d" target="d120" onVal="1" />
+        <group index="1" name="" datatype="d" target="d121" onVal="2" />
+        <group index="1" name="" datatype="d" target="d122" onVal="3" />
+        <group index="1" name="" datatype="d" target="d123" onVal="4" />
+      </fb>
+      <fb name="Input_SelectFromMobileDevice_FB" regex="^Evt00002,2,0000000092,(\d+)">
+        <group index="1" name="" datatype="d" target="d120" onVal="129" />
+        <group index="1" name="" datatype="d" target="d121" onVal="131" />
+        <group index="1" name="" datatype="d" target="d122" onVal="135" />
+        <group index="1" name="" datatype="d" target="d123" onVal="999" />
+      </fb>
+      <fb name="Display_FB" regex="^PPPPwr(\d)">
+        <group index="1" name="[display]" datatype="d" target="d110" settoken="2" onVal="1" />
+        <group index="1" name="[display]" datatype="d" target="d111" settoken="2" onVal="0" />
+        <onmatch target="d20" value="3" cmd="showDisplayPowUp" />
+        <onmatch target="d21" value="2" cmd="showDisplayPowUp" />
+      </fb>
+      <fb name="Volume_FB" regex="^Vol(\d+)">
+        <group index="1" name="" datatype="a" target="a130" min="0" max="100" />
+        <group index="1" name="" datatype="s" target="s103" />
+      </fb>
+    </system>
+  </systems>
+  <macros>
+    <macro name="startupMacro">
+      <command delay="0">SetVerboseMode3</command>
+      <command delay="100">requestConnectionStatus</command>
+      <command delay="200">requestDisplayPowerStatus</command>
+      <command delay="300">requestInputStatus</command>
+      <command delay="400">requestLampHour</command>
+      <command delay="500">requestVolLevel</command>
+    </macro>
+  </macros>
+  <themes>
+    <theme type="button" name=".arrow_down[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_down_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_down[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_down_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_enter[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_enter_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_enter[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_enter_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_left[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_left_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_left[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_left_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_right[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_right_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_right[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_right_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_up[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_up_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_up[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_up_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_left[state='0']"><![CDATA[padding: 0px 1px 0px 20px; -webkit-border-image: url(btn_group_left_off.png) 0 1 0 20; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_left[state='1']"><![CDATA[padding: 0px 1px 0px 20px; -webkit-border-image: url(btn_group_left_on.png) 0 1 0 20; text-shadow: rgba(53,202,244,1) 0px 0px 3px; color: #9DCEFF; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_middle[state='0']"><![CDATA[padding: 0px 1px 0px 1px; -webkit-border-image: url(btn_group_middle_off.png) 0 1 0 1; text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_middle[state='1']"><![CDATA[padding: 0px 1px 0px 1px; -webkit-border-image: url(btn_group_middle_on.png) 0 1 0 1; text-shadow: rgba(53,202,244,1) 0px 0px 3px; color: #9DCEFF; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_right[state='0']"><![CDATA[padding: 0px 20px 0px 1px; -webkit-border-image: url(btn_group_right_off.png) 0 20 0 1; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_right[state='1']"><![CDATA[padding: 0px 20px 0px 1px; -webkit-border-image: url(btn_group_right_on.png) 0 20 0 1; text-shadow: rgba(53,202,244,1) 0px 0px 3px; color: #9DCEFF; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_single[state='0']"><![CDATA[padding: 0px 20px 0px 20px; -webkit-border-image: url(btn_single_off.png) 0 20 0 20; text-shadow: rgba(0,0,0,1) 0px 1px 1px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_single[state='1']"><![CDATA[padding: 0px 20px 0px 20px; -webkit-border-image: url(btn_single_on.png) 0 20 0 20; text-shadow: rgba(53,202,244,1) 0px 0px 3px; color: #9DCEFF; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="background" name=".portrait"><![CDATA[ background-image: url(bg_portrait.png); background-repeat: no-repeat;]]></theme>
+    <theme type="background" name=".landscape"><![CDATA[ background-image: url(bg_landscape.png); background-repeat: no-repeat;]]></theme>
+    <theme type="text" name=".small_bold_c"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 12px; font-family: 'Arial'; text-align: center; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".small_bold_l"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 12px; font-family: 'Arial'; text-align: left; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".small_bold_r"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 12px; font-family: 'Arial'; text-align: right; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".med_bol_l"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 16px; font-family: 'Arial'; text-align: left; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".med_bol_c"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 16px; font-family: 'Arial'; text-align: center; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".med_bol_r"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 16px; font-family: 'Arial'; text-align: right; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".large_bold_r"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 22px; font-family: 'Arial'; text-align: right; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".large_bold_c"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 22px; font-family: 'Arial'; text-align: center; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".large_bold_l"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 22px; font-family: 'Arial'; text-align: left; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="button" name=".btn_group_top[state='0']"><![CDATA[padding: 20px 0px 1px 0px; -webkit-border-image: url(btn_group_top_off.png) 20 0 1 0; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_top[state='1']"><![CDATA[padding: 20px 0px 1px 0px; -webkit-border-image: url(btn_group_top_on.png) 20 0 1 0; text-shadow: rgba(53,202,244,1) 0px 0px 3px; color: #9DCEFF; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_bottom[state='0']"><![CDATA[padding: 1px 0px 20px 0px; -webkit-border-image: url(btn_group_bottom_off.png) 1 0 20 0; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_bottom[state='1']"><![CDATA[padding: 1px 0px 20px 0px; -webkit-border-image: url(btn_group_bottom_on.png) 1 0 20 0; text-shadow: rgba(53,202,244,1) 0px 0px 3px; color: #9DCEFF; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_center[state='0']"><![CDATA[padding: 1px 0px 1px 0px; -webkit-border-image: url(btn_group_center_off.png) 1 0 1 0; text-shadow: rgba(0,0,0,1) 0px 1px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_group_center[state='1']"><![CDATA[padding: 1px 0px 1px 0px; -webkit-border-image: url(btn_group_center_on.png) 1 0 1 0; text-shadow: rgba(53,202,244,1) 0px 0px 3px; color: #9DCEFF; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="gauge" name=".gauge_h[state='0']"><![CDATA[ background-image: url(gauge_h_off.png);]]></theme>
+    <theme type="gauge" name=".gauge_h[state='1']"><![CDATA[ background-image: url(gauge_h_on.png);]]></theme>
+    <theme type="gauge" name=".gauge_v[state='0']"><![CDATA[ background-image: url(gauge_v_off.png);]]></theme>
+    <theme type="gauge" name=".gauge_v[state='1']"><![CDATA[ background-image: url(gauge_v_on.png);]]></theme>
+    <theme type="text" name=".grey_bold_c"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px -1px 0px; color: Silver; font-size: 12px; font-family: 'Arial'; text-align: center; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".grey_bold_r"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px -1px 0px; color: Silver; font-size: 12px; font-family: 'Arial'; text-align: right; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="text" name=".grey_bold_l"><![CDATA[ text-shadow: rgba(0,0,0,1) 0px -1px 0px; color: Silver; font-size: 12px; font-family: 'Arial'; text-align: left; vertical-align: middle; font-weight: bold; font-style: none; text-decoration: none; display: table-cell;]]></theme>
+    <theme type="button" name=".arrow_down_blank[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_down_blank_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_down_blank[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_down_blank_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_up_blank[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_up_blank_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_up_blank[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_up_blank_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_left_blank[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_left_blank_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_left_blank[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_left_blank_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_right_blank[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_right_blank_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_right_blank[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_right_blank_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_enter_blank[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_enter_blank_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".arrow_enter_blank[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(arrow_enter_blank_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".control_lights_round[state='0']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(lights_round_off.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".control_lights_round[state='1']"><![CDATA[padding: 0px 0px 0px 0px; background-image: url(lights_round_on.png); color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_transparent[state='0']"><![CDATA[padding: 0px 0px 0px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+    <theme type="button" name=".btn_transparent[state='1']"><![CDATA[padding: 0px 0px 0px 0px; color: White; font-size: 12px; font-family: 'Verdana'; font-weight: normal; font-style: none; text-decoration: none; text-align: center; vertical-align: middle; display: table-cell; box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-tap-highlight-color:rgba(0,0,0,0);]]></theme>
+  </themes>
+  <scripts>
+    <script name="extron.js" />
+  </scripts>
+  <page name="Main" j="0" tags="" transition="" subtype="" time="0" ease="" start="1">
+    <portrait t="portrait">
+      <txt j="1000" x="0" y="435" w="320" h="45" t="small_bold_c" wrap="True" l="0" tags="">(All Feedback)</txt>
+      <txt j="0" x="216" y="32" w="80" h="45" t="small_bold_c" wrap="True" l="0" tags="">Lamp
+Hours</txt>
+      <txt j="0" x="10" y="32" w="80" h="45" t="small_bold_c" wrap="True" l="0" tags="">MLC
+Status</txt>
+      <txt j="0" x="118" y="32" w="80" h="45" t="small_bold_c" wrap="True" l="0" tags="">Projector
+Status</txt>
+      <txt j="0" x="0" y="110" w="320" h="35" t="small_bold_c" wrap="True" l="0" tags="">===============   CONTROL   ===============</txt>
+      <txt j="0" x="16" y="148" w="89" h="43" t="small_bold_l" wrap="True" l="0" tags="">Display : </txt>
+      <txt j="0" x="16" y="187" w="296" h="43" t="small_bold_l" wrap="True" l="0" tags="">Device Status : </txt>
+      <txt j="0" x="16" y="229" w="89" h="43" t="small_bold_l" wrap="True" l="0" tags="">Input : </txt>
+      <txt j="0" x="16" y="359" w="89" h="43" t="small_bold_l" wrap="True" l="0" tags="">Volume :  0</txt>
+      <btn j="110" x="82" y="148" w="85" h="43" t="btn_single" flip="None" sim="0" l="0" s="1" tags="" cmd="Display_PowerOn">
+        <inactive s="0">On</inactive>
+        <active s="0">On</active>
+      </btn>
+      <btn j="111" x="177" y="148" w="85" h="43" t="btn_single" flip="None" sim="0" l="0" s="1" tags="" cmd="Display_PowerOff">
+        <inactive s="0">Off</inactive>
+        <active s="0">Off</active>
+      </btn>
+      <btn j="120" x="82" y="229" w="85" h="43" t="btn_single" flip="None" sim="0" l="0" s="1" tags="" cmd="Input1">
+        <inactive s="0">VCR</inactive>
+        <active s="0">VCR</active>
+      </btn>
+      <btn j="121" x="177" y="229" w="85" h="43" t="btn_single" flip="None" sim="0" l="0" s="1" tags="" cmd="Input2">
+        <inactive s="0">DVD</inactive>
+        <active s="0">DVD</active>
+      </btn>
+      <btn j="122" x="82" y="278" w="85" h="43" t="btn_single" flip="None" sim="0" l="0" s="1" tags="" cmd="Input3">
+        <inactive s="0">PC</inactive>
+        <active s="0">PC</active>
+      </btn>
+      <btn j="123" x="177" y="278" w="85" h="43" t="btn_single" flip="None" sim="0" l="0" s="1" tags="" cmd="Input4">
+        <inactive s="0">PC2</inactive>
+        <active s="0">PC2</active>
+      </btn>
+      <slider j="130" d="130" x="86" y="370" w="188" h="21" min="0" max="100" decimals="0" pressCmd="VolSlider" dragCmd="VolSlider" releaseCmd="VolSlider" unit="decimal" t="gauge_h" sim="0" l="0" tags="" />
+      <txt j="0" x="282" y="359" w="24" h="43" t="small_bold_l" wrap="True" l="0" tags="">100</txt>
+      <txt j="101" x="114" y="187" w="199" h="43" t="small_bold_l" wrap="True" l="0" tags="">XXXXXX</txt>
+      <txt j="102" x="217" y="63" w="80" h="45" t="small_bold_c" wrap="True" l="0" tags="">xxxxx</txt>
+      <txt j="101" x="118" y="63" w="80" h="45" t="small_bold_c" wrap="True" l="0" tags="">Disconnected</txt>
+      <btn j="100" x="26" y="63" w="45" h="45" t="control_lights_round" flip="None" sim="0" l="0" s="1" tags="">
+        <inactive s="0">
+        </inactive>
+        <active s="0">
+        </active>
+      </btn>
+      <txt j="0" x="0" y="0" w="320" h="35" t="small_bold_c" wrap="True" l="0" tags="">===============   STATUS   ===============</txt>
+      <txt j="0" x="0" y="326" w="320" h="35" t="small_bold_c" wrap="True" l="0" tags="">===============   VOLUME   ===============</txt>
+      <txt j="0" x="0" y="414" w="320" h="35" t="small_bold_c" wrap="True" l="0" tags="">===============   LOGGING   ===============</txt>
+      <subpage name="Display_PowerDown" x="0" y="0" j="21" transition1="fade" subtype1="None" time1="0" ease1="" transition2="fade" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="0" v="0" l="0" tags="" />
+      <subpage name="Display_PowerUp" x="0" y="0" j="20" transition1="fade" subtype1="None" time1="0" ease1="" transition2="fade" subtype2="None" time2="0" ease2="" clickthrough="0" topmost="0" v="0" l="0" tags="" />
+      <txt j="103" x="166" y="384" w="26" h="31" t="small_bold_l" wrap="True" l="0" tags="">Lvl</txt>
+    </portrait>
+    <landscape />
+  </page>
+  <subpage name="Display_PowerUp" w="320" h="480" clip="1">
+    <img x="0" y="0" w="320" h="480" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0" tags="">bg_dark_overlay.png</img>
+    <txt j="0" x="23" y="3" w="287" h="476" t="large_bold_c" wrap="True" l="0" tags="">Please wait while the display is POWERING UP ....</txt>
+  </subpage>
+  <subpage name="Display_PowerDown" w="320" h="480" clip="1">
+    <img x="0" y="0" w="320" h="480" j="0" clickthrough="0" refresh="0" l="1" noCache="0" downloadIndicator="0" clearOnURLChange="0" tags="">bg_dark_overlay.png</img>
+    <txt j="0" x="23" y="3" w="287" h="476" t="large_bold_c" wrap="True" l="0" tags="">Please wait while the display is POWERING DOWN ....</txt>
+  </subpage>
+</gui>
